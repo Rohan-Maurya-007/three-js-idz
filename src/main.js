@@ -18,7 +18,7 @@ camera.position.z = 5;
 const loader = new GLTFLoader();
 let load;
 loader.load(
-  "/public/cars_f1.glb",
+  "/cars_f1.glb",
   (gltf) => {
     load = gltf.scene;
     scene.add(gltf.scene);
