@@ -56,6 +56,34 @@ function onmousemove(e) {
 }
 let isMouseDown = false;
 
+// Touch events for mobile devices
+window.addEventListener("touchstart", (e) => {
+  isMouseDown = true;
+  previousMousePos = {
+    x: e.touches[0].clientX,
+    y: e.touches[0].clientY,
+  };
+});
+
+window.addEventListener("touchend", () => {
+  isMouseDown = false;
+});
+
+window.addEventListener("touchmove", (e) => {
+  if (isMouseDown && load) {
+    const deltaMove = {
+      x: e.touches[0].clientX - previousMousePos.x,
+      y: e.touches[0].clientY - previousMousePos.y,
+    };
+    load.rotation.y += deltaMove.x * 0.01;
+    load.rotation.x += deltaMove.y * 0.01;
+    previousMousePos = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    };
+  }
+});
+
 function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
@@ -66,7 +94,7 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
   if (load) {
-    const scaleFactor = Math.min(window.innerWidth, window.innerHeight) / 1000;
+    const scaleFactor = Math.min(window.innerWidth, window.innerHeight) / 10000;
     load.scale.set(scaleFactor, scaleFactor, scaleFactor);
   }
 });
