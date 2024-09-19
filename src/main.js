@@ -94,7 +94,7 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
   if (load) {
-    const scaleFactor = Math.min(window.innerWidth, window.innerHeight) / 10000;
+    const scaleFactor = Math.min(window.innerWidth, window.innerHeight) / 1000;
     load.scale.set(scaleFactor, scaleFactor, scaleFactor);
   }
 });
