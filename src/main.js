@@ -11,16 +11,22 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(5, 5, 5).normalize();
+light.position.set(10, 10, 10).normalize();
 scene.add(light);
 scene.background = new THREE.Color(0xeeeeee);
-camera.position.z = 5;
+camera.position.z = 7;
 const loader = new GLTFLoader();
 let load;
 loader.load(
-  "/cars_f1.glb",
+  "/monkey_unicorn.glb",
   (gltf) => {
     load = gltf.scene;
+
+    const box = new THREE.Box3().setFromObject(load);
+    const center = box.getCenter(new THREE.Vector3());
+
+    // Set the model's position to center it
+    load.position.set(-center.x, -center.y, -center.z);
     scene.add(gltf.scene);
     if (load) {
       animate();
